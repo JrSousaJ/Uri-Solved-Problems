@@ -23,16 +23,11 @@ int main()
        for(int i=0;i<n2;i++)
        {
            if(v[i]>med)
-           {
                c++;
-           }
        }
-       double ans=(double)((100/n2)*c);
-       printf("%.3lf %%\n",ans);
+       double ans=(double)c/n2;
+
+       printf("%.3lf %%\n",ans*100);
    }
 	return 0;
 }
-
-
-
-
