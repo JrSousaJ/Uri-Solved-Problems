@@ -25,11 +25,14 @@ char a,b;
 int main()
 {
     int n;cin >> n;
-    graph.assign(27,vector<int>());
+    
     int k = 1;
     while(n--)
     {
+
         int x,y;cin >> x >> y;
+         graph.assign(27,vector<int>());
+         memset(vis,0,sizeof vis);
         for(int i=0;i<y;i++)
         {
             cin >> a >> b;
@@ -52,11 +55,9 @@ int main()
                 printf("\n");
                 comp.clear();
             }
+
         }
         printf("%d connected components\n\n",ans);
     }
     return 0;
 }
-
-
-
