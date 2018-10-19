@@ -50,7 +50,8 @@ int top(pilha s)
 	return aux->n;
 
 }
-int main() {
+int main()
+{
 	int n,n2;
 	while(~scanf("%d%d",&n,&n2))
 	{
@@ -70,21 +71,21 @@ int main() {
 		{
 			c=0;
 			while(!isEmpty(p) && v[i].entr>= v[top(p)].said)
-            {
-                (v[top(p)].said >= c && se)? se=true: se=false;
-                c=v[top(p)].said;
-                pop(&p);
-            }
-          (siz<n2 && se)? se=true: se=false;
-            push(&p,v[i].id);
+            		{
+				(v[top(p)].said >= c && se)? se=true: se=false;
+				c=v[top(p)].said;
+				pop(&p);
+            		}
+		  	(siz<n2 && se)? se=true: se=false;
+		  	push(&p,v[i].id);
 		}
 		c=0;
 		while(!isEmpty(p))
-        {
-            (v[top(p)].said >= c && se)? se=true: se=false;
-            c=v[top(p)].said;
-            pop(&p);
-        }
+        	{
+		    (v[top(p)].said >= c && se)? se=true: se=false;
+		    c=v[top(p)].said;
+		    pop(&p);
+       		}
 		if(!se)printf("Nao\n");
 		else printf("Sim\n");
 	}
