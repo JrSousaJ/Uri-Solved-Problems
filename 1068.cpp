@@ -1,70 +1,33 @@
 #include<bits/stdc++.h>
-struct no
-{
-    int n;
-    struct no *prox;
-};
-struct pilha
-{
-    struct no *topo;
-};
-void create(pilha *s)
-{
-    s->topo=NULL;
-}
-void push(pilha*s, int d)
-{
-    struct no *aux;
-    aux=(struct no*)malloc(sizeof(struct no));
-    if(aux==NULL)return ;
-    aux->n=d;
-    aux->prox=s->topo;
-    s->topo=aux;
-}
-//void pop(pilha *s, int *d)
-void pop(pilha *s)
-{
-    struct no *aux;
-    if(s->topo==NULL)return ;
-    aux=s->topo;
-    s->topo=(s->topo)->prox;
-    //*d=aux->n;
-    free(aux);
-}
-
-bool isEmpty(pilha s)
-{
-    if(s.topo==NULL)return true;
-    return false;
-}
-
 
 using namespace std;
 
+
+bool achar(string z)
+{
+   stack<char>c;
+   for(int i=0;i<z.size();i++)
+      {
+        if(z[i]=='(')c.push(z[i]);
+        else if(z[i]==')')
+        {
+            if(c.empty())return false;
+            else c.pop();
+        } 
+      }
+     return c.empty();
+}
 int main()
 {
-   char s[10001];
-   pilha x;
-
-   while(~scanf(" %[^\n]",s))
+   string s;
+   while(getline(cin,s))
    {
-       create(&x);
-       bool ae=true;
-        for(int i=0;i<strlen(s);i++)
-        {
-            if(s[i]=='(')push(&x,1);
-            else if(s[i]==')')
-            {
-                if(isEmpty(x))
-                {
-                    ae=false;
-                    break;
-                }
-                else pop(&x);
-            }
-        }
-        if(!isEmpty(x) || !ae)printf("incorrect\n");
-        else printf("correct\n");
+      
+     bool aff=achar(s);
+     if(aff==true)printf("correct\n");
+     else printf("incorrect\n");
+     
    }
-    return 0;
+   
+   return 0;
 }
