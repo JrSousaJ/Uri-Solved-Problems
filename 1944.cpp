@@ -1,9 +1,15 @@
 #include<bits/stdc++.h>
-
+ 
 using namespace std;
+int siz=0;
+struct st
+{
+    int id;
+    string ss;
+};
 struct no
 {
-    char n;
+    int n;
     struct no *prox;
 };
 struct pilha
@@ -14,84 +20,86 @@ void create(pilha *s)
 {
     s->topo=NULL;
 }
-void push(pilha * s, char d)
+void push(pilha *s,int d)
 {
-	struct no *aux;
-	aux=(struct no *)malloc(sizeof(struct no));
-	if(aux==NULL)return ;
-	aux->n=d;
-	aux->prox = s->topo;
-	s->topo=aux;
+    siz++;
+    struct no *aux;
+    aux=(struct no*)malloc(sizeof(struct no));
+    if(aux==NULL)return ;
+    aux->n=d;
+    aux->prox=s->topo;
+    s->topo=aux;
 }
 void pop(pilha *s)
 {
-	struct no *aux;
-	if(s->topo==NULL)return ;
-	aux=s->topo;
-	s->topo = (s->topo)->prox;
-	free(aux);
+    siz--;
+    struct no *aux;
+    if(s->topo==NULL)return ;
+    aux=s->topo;
+    s->topo=(s->topo)->prox;
+    free(aux);
 }
 bool isEmpty(pilha s)
 {
     if(s.topo==NULL)return true;
     return false;
 }
-void topt(pilha s,char q[])
+void reverseStr(string& str)
 {
-	struct no *aux = s.topo;
-	q[0]=aux->n;
-	aux=aux->prox;
-	q[1]=aux->n;
-	aux=aux->prox;
-	q[2]=aux->n;
-	aux=aux->prox;
-	q[3]=aux->n;
-	q[4]='\0';
-
+    int n = str.length();
+    for (int i = 0; i < n / 2; i++)
+        swap(str[i], str[n - i - 1]);
 }
+int topt(pilha s)
+{
+    struct no *aux = s.topo;
+    return aux->n;
+}
+vector<st>v;
 int main()
 {
-	int n,ans=0;
-	pilha p;
-	create(&p);
-	scanf("%d",&n);
-	while(n--)
-	{
-		char q[10],q2[5];
-		scanf(" %[^\n]",q);
-		if(isEmpty(p))
+    int n,ans=0;
+    pilha p;
+    char c;
+    create(&p);
+    scanf("%d",&n);
+    push(&p,-1);
+    for(int i=0;i<n;i++)
+    {
+        string aux;
+        for (int j=0;j<4;j++)
         {
-				push(&p,'F');
-				push(&p,'A');
-				push(&p,'C');
-				push(&p,'E');
+            scanf(" %c",&c);
+            aux.push_back(c);
+        } 
+        v.push_back({i,aux});
+    }
+    for(int i=0;i<n;i++)
+    {
+        printf("%d\n",siz);
+        string rev=v[i].ss;
+        reverseStr(rev);
+        if(topt(p)==-1 && rev=="FACE")
+        {
+            ans++;
+            pop(&p);
+            printf("a%d\n",siz);
         }
-		q2[0]=q[0];
-		q2[1]=q[2];
-		q2[2]=q[4];
-		q2[3]=q[6];
-		q2[4]='\0';
-		//printf("entrou %s\n",q2);
-		topt(p,q);
-		//printf("*%s*%s*\n",q,q2);
-		if(strcmp(q,q2)==0)
-		{
-			//printf("deu certo\n");
-			pop(&p);
-			pop(&p);
-			pop(&p);
-			pop(&p);
-			ans++;
-		}
-		else
-		{
-            push(&p,q2[0]);
-            push(&p,q2[1]);
-            push(&p,q2[2]);
-            push(&p,q2[3]);
-		}
-
-	}
-	printf("%d\n",ans);
-	return 0;
+        else if(rev == v[topt(p)].ss)
+        {
+            ans++;
+            pop(&p);
+        }
+        else
+        {
+            push(&p,v[i].id);
+        }
+        if(isEmpty(p))
+        {
+                create(&p);
+                push(&p,-1);
+        }
+    }
+    printf("%d\n",ans);
+    return 0;
 }
