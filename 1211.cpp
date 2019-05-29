@@ -15,16 +15,17 @@ int main()
             v.push_back(x);
         }
         int m=-1,ans=0;
+        sort(v.begin(),v.end());
         for(int i=1;i<n;i++)
         {
-            ans=0;
-            for(int j=0;j<v[i].size();i++)
+            for(int j=0;j<v[i].size();j++)
             {
-                if(v[i][j]==v[0][j])ans++;
+                if(v[i][j]==v[i-1][j])ans++;
+                else break;
             }
-            m=max(m,ans);
         }
-        printf("%d\n",m);
+        v.clear();
+        printf("%d\n",ans);
     }
     return 0;
 }
