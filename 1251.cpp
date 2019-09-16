@@ -1,25 +1,33 @@
 #include<bits/stdc++.h>
 
 using namespace std;
-map<int,int>m;
-map<int,int>::reverse_iterator it;
+
 int main()
 {
-	 int n;
 	 string s;
+	 int f=0;
 	 while(cin >> s)
 	 {
+	 	if(f)printf("\n");
+	 	map<int,int>m;
+
 	 	for(int i=0;i<s.size();i++)
 	 	{
-	 		n=s[i];
-	 		m[n]++;
-	 	}
-	 	for(it=m.rend();it!=m.rbegin();it--)
-	 	{
 	 		
-	 		cout << it->first << " " <<it->second << endl;
+	 		m[(int)s[i]]++;
 	 	}
-	 	m.clear();
+	 	map<int,int>::iterator it;
+	 	vector<pair<int,int> > v;
+	 	for(it=m.begin();it!=m.end();it++)
+	 	{
+	 		v.push_back({it->second ,-it->first});
+	 	}
+	 	sort(v.begin(),v.end());
+	 	for(int i=0;i<v.size();i++){
+	 		printf("%d %d\n",-v[i].second,v[i].first);
+	 	}
+	 	f=1;	
 	 }
    	return 0;
+
 }

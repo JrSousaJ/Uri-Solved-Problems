@@ -6,7 +6,7 @@ int v,n;
 const int N = 1e3+5;
 const int M = 1e5+5;
 int val[N];
-int dp[2][M];
+int dp[N][M];
 int pd(int pos, int troco)
 {
   if(troco == 0)return 1;
